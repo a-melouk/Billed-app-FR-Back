@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const jwt = require("../services/jwt");
-const fixtures = require('./fixtures')
+const fixtures = require("./fixtures");
 
 const jwtValueAdmin = jwt.encrypt({
   userId: 1,
@@ -21,21 +21,15 @@ describe("Test the root path", () => {
   });
 
   test("It should return unauthenticate error for list user", () => {
-    return request(app)
-      .get("/users/73WakrfVbNJBaAmhQtEeDv")
-      .expect(401);
+    return request(app).get("/users/73WakrfVbNJBaAmhQtEeDv").expect(401);
   });
 
   test("It should return unauthenticate error for update user", () => {
-    return request(app)
-      .patch("/users/73WakrfVbNJBaAmhQtEeDv")
-      .expect(401);
+    return request(app).patch("/users/73WakrfVbNJBaAmhQtEeDv").expect(401);
   });
 
   test("It should return unauthenticate error for delete user", () => {
-    return request(app)
-      .delete("/users/73WakrfVbNJBaAmhQtEeDv")
-      .expect(401);
+    return request(app).delete("/users/73WakrfVbNJBaAmhQtEeDv").expect(401);
   });
 
   test("It should get a list of users", () => {
@@ -95,8 +89,7 @@ describe("Test the root path", () => {
   });
 
   test("It should update a user as unauthorized", async () => {
-
-    await fixtures.reset()
+    await fixtures.reset();
     return request(app)
       .patch("/users/73WakrfVbNJBaAmhQtEeDv")
       .set("Authorization", `Bearer ${jwtValue}`)
@@ -114,7 +107,7 @@ describe("Test the root path", () => {
   });
 
   test("It should not delete a user as unauthorized", async () => {
-    await fixtures.reset()
+    await fixtures.reset();
     return request(app)
       .delete("/users/73WakrfVbNJBaAmhQtEeDv")
       .set("Authorization", `Bearer ${jwtValue}`)

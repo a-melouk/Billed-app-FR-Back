@@ -7,12 +7,17 @@ module.exports = async (req, res, next) => {
     const [_, token] = req.headers.authorization.split(' ');
     try {
       const userPayload = await jwt.isValid(token);
-      const user = await User.findOne({ where: { email: userPayload?.data?.email } });
+      const user = await User.findOne({
+        where: { email: userPayload?.data?.email },
+      });
       req.user = user;
       next();
       return null;
     } catch (err) {
-      res.status(401).send({message: 'user not allowed! you should clear your localstorage and retry!'});
+      res.status(401).send({
+        message:
+          'user not allowed! you should clear your localstorage and retry!',
+      });
       return null;
     }
   }

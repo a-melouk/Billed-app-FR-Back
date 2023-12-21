@@ -20,27 +20,19 @@ describe("Test the root path", () => {
   });
 
   test("It should return unauthenticated error for list bills", () => {
-    return request(app)
-      .get("/bills")
-      .expect(401);
+    return request(app).get("/bills").expect(401);
   });
 
   test("It should return unauthenticated error for create bill", () => {
-    return request(app)
-      .post("/bills")
-      .expect(401);
+    return request(app).post("/bills").expect(401);
   });
 
   test("It should return unauthenticated error for update bill", () => {
-    return request(app)
-      .patch("/bills/47qAXb6fIm2zOKkLzMrb")
-      .expect(401);
+    return request(app).patch("/bills/47qAXb6fIm2zOKkLzMrb").expect(401);
   });
 
   test("It should return unauthenticated error for delete bill", () => {
-    return request(app)
-      .delete("/bills/47qAXb6fIm2zOKkLzMrb")
-      .expect(401);
+    return request(app).delete("/bills/47qAXb6fIm2zOKkLzMrb").expect(401);
   });
 
   test("It should list all bills as admin", () => {
@@ -127,8 +119,8 @@ describe("Test the root path", () => {
       .post("/bills")
       .set("Authorization", `Bearer ${jwtValue}`)
       .set("Accept", "multipart/form-data")
-      .field('name','bill-name')
-      .attach('file', 'tests/fixture-cat.jpg')
+      .field("name", "bill-name")
+      .attach("file", "tests/fixture-cat.jpg")
       .expect(201);
   });
 
@@ -137,11 +129,11 @@ describe("Test the root path", () => {
       .post("/bills")
       .set("Authorization", `Bearer ${jwtValue}`)
       .set("Accept", "multipart/form-data")
-      .field('name','bill-name')
-      .attach('file', 'tests/fixture-cat.pdf')
+      .field("name", "bill-name")
+      .attach("file", "tests/fixture-cat.pdf")
       .then((response) => {
         expect(response.body).toMatchObject({
-          name: 'bill-name',
+          name: "bill-name",
           fileName: false,
           filePath: false,
         });
